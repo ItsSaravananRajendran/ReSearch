@@ -47,11 +47,9 @@ module.exports = {
       template: "./public/index.html",
     }),
   ],
-  devServer: {
-    host: "localhost",
-    port: port,
-    historyApiFallback: true,
-    open: true,
-    hot: true,
+  watchOptions: {
+    aggregateTimeout: 300,
+    poll: 1000,
+    ignored: ["/node_modules/"],
   },
 };

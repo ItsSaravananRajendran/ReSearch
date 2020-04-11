@@ -5,7 +5,7 @@ import Style from "./Style.css";
 const Home = () => {
   return (
     <div className={Style.bold}>
-      <p>Hello World of React and Webpack! And wow</p>
+      <p>Hello World</p>
     </div>
   );
 };
