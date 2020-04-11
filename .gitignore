@@ -1,2 +1,4 @@
+# For Node
 **/node_modules
 **/dist
+**/.npm
