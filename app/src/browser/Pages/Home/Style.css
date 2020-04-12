@@ -1,4 +1,18 @@
-.bold {
-  font-weight: 600;
-  font-size: 20px;
+html,
+body {
+  height: 100%;
+}
+
+input:focus,
+select:focus,
+textarea:focus,
+button:focus {
+  outline: none;
+  border: 0px;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  height: 600px;
 }

@@ -1,0 +1,15 @@
+.container {
+  padding: 3px 5px;
+  background-color: white;
+  border-radius: 4px;
+}
+
+.inputBox {
+  border: 0px;
+  height: 25px;
+  width: 100%;
+}
+
+.selected {
+  border: 1px solid aqua;
+}
