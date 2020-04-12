@@ -13,7 +13,7 @@ const RequestHandler = (
     .set(headers)
     .end((err, res) => {
       if (err) errorCB(err);
-      else successCB(res);
+      else successCB(res.body);
     });
 };
 

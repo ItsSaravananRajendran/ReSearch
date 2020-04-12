@@ -1,6 +1,6 @@
 import { RequestHandler } from "../../Common/requestHandler";
 
-const root = "dev.me:3000";
+const root = "http://dev.me:3000";
 
 const requestHandlerFactory = (url, method = "get", header = {}) => (
   data,
