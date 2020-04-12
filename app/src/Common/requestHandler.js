@@ -17,4 +17,4 @@ const RequestHandler = (
     });
 };
 
-exports = RequestHandler;
+exports.RequestHandler = RequestHandler;
