@@ -4,7 +4,6 @@ import torch
 from transformers import BertForQuestionAnswering
 from transformers import BertTokenizer
 from transformers import BartTokenizer, BartForConditionalGeneration
-from constant import BIOASQ_DIR
 from Bio import Entrez, Medline
 try:
     from StringIO import StringIO
@@ -15,9 +14,7 @@ import json
 from pyserini.search import pysearch
 import tensorflow as tf
 import tensorflow_hub as hub
-
-from constructText import reconstructText
-from luceneSearch import getHits
+import numpy as np
 
 torch_device = 'cuda' if torch.cuda.is_available() else 'cpu'
 
@@ -104,6 +101,7 @@ def getHits(query,keywords,searcher):
             if isinstance(abs_dirty, str):
                 v['abstract_paragraphs'].append(abs_dirty)
                 v['abstract_full'] += abs_dirty + ' \n\n'
+    return hit_dictionary
 
 
 class searchModel:
@@ -113,7 +111,7 @@ class searchModel:
         self.QA_MODEL.to(torch_device)
         self.QA_MODEL.eval()
         self.searcher = pysearch.SimpleSearcher(luceneDir)
-        self.self.USE_SUMMARY = true;
+        self.USE_SUMMARY = True;
 
         if self.USE_SUMMARY:
             self.SUMMARY_TOKENIZER = BartTokenizer.from_pretrained('bart-large-cnn')
@@ -180,14 +178,14 @@ class searchModel:
             #print(n_ids)
 
             if n_ids < 512:
-                start_scores, end_scores = QA_MODEL(torch.tensor([iptIds]).to(torch_device), 
+                start_scores, end_scores = self.QA_MODEL(torch.tensor([iptIds]).to(torch_device), 
                                         token_type_ids=torch.tensor([segment_ids]).to(torch_device))
             else:
                 #this cuts off the text if its more than 512 words so it fits in model space
                 #need run multiple inferences for longer text. add to the todo
                 print('****** warning only considering first 512 tokens, document is '+str(nWords)+' words long.  There are '+str(n_ids)+ ' tokens')
                 absTooLong = True
-                start_scores, end_scores = QA_MODEL(torch.tensor([iptIds[:512]]).to(torch_device), 
+                start_scores, end_scores = self.QA_MODEL(torch.tensor([iptIds[:512]]).to(torch_device), 
                                         token_type_ids=torch.tensor([segment_ids[:512]]).to(torch_device))
             start_scores = start_scores[:,1:-1]
             end_scores = end_scores[:,1:-1]
@@ -324,7 +322,7 @@ class searchModel:
             ## try generating an exacutive summary with extractive summarizer
             allAnswersTxt = ' '.join(ranked_aswers[:6]).replace('\n','')
     
-            answers_input_ids = self.self.SUMMARY_TOKENIZER.batch_encode_plus([allAnswersTxt], return_tensors='pt', max_length=1024)['input_ids'].to(torch_device)
+            answers_input_ids = self.SUMMARY_TOKENIZER.batch_encode_plus([allAnswersTxt], return_tensors='pt', max_length=1024)['input_ids'].to(torch_device)
             summary_ids = self.SUMMARY_MODEL.generate(answers_input_ids,
                                                 num_beams=10,
                                                 length_penalty=1.2,
@@ -334,13 +332,13 @@ class searchModel:
 
             exec_sum = self.SUMMARY_TOKENIZER.decode(summary_ids.squeeze(), skip_special_tokens=True)
             
-        answer['execsumm'] = exec_sum    
-        return answer;
+        answers['execsumm'] = exec_sum    
+        return answers;
 
     def getResult(self,query,keywords):
         hits = getHits(query,keywords,self.searcher)
         answers = self.searchAbstracts(hits,query)
-        return self.getSummary(hits,answer,query)
+        return self.getSummary(hits,answers,query)
 
 
 
