@@ -331,9 +331,13 @@ class searchModel:
                                                 no_repeat_ngram_size=4)
 
             exec_sum = self.SUMMARY_TOKENIZER.decode(summary_ids.squeeze(), skip_special_tokens=True)
-            
-        answers['execsumm'] = exec_sum    
-        return answers;
+      
+        finalResult = [{"summary":exec_sum}]
+        for key in answers:
+            obj = answers[key];
+            obj['con'] = key;
+            finalResult.append(obj);    
+        return finalResult;
 
     def getResult(self,query,keywords):
         hits = getHits(query,keywords,self.searcher)

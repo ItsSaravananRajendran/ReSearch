@@ -12,6 +12,8 @@ tar -zxvf openjdk-11.0.2_linux-x64_bin.tar.gz &&
 sudo update-alternatives --install /usr/bin/java java /home/user/jdk-11.0.2/bin/java 1 &&
 sudo update-alternatives --set java /home/user/jdk-11.0.2/bin/java
 export JAVA_HOME="/home/user/jdk-11.0.2"
+export FLASK_APP=server.py
+flask run --host=0.0.0.0
 
 jupyter notebook --no-browser --port=8889
 ssh -N -f -L localhost:8888:localhost:8889 username@your_remote_host_name
