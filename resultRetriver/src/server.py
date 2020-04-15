@@ -21,7 +21,8 @@ def create_app(test_config=None):
 
     @app.route('/query')
     def query():
-        inp = {"query":query, "keywords":keywords}
+        data = request.get_json()
+        inp = {"query":data.get('query',''), "keywords":data.get('keywords','')}
         result = getResult.delay(inp);
         return result;
         
