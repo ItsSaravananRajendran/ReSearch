@@ -9,5 +9,5 @@ const requestHandlerFactory = (url, method = "get", header = {}) => (
 ) => RequestHandler(url, method, data, header, successCB, errorCB);
 
 export default {
-  getSearchResult: requestHandlerFactory(`${root}/getData`),
+  getSearchResult: requestHandlerFactory(`${root}/query`),
 };

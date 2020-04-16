@@ -1,6 +1,7 @@
 const path = require("path");
 const express = require("express");
 const bodyParser = require("body-parser");
+const RequestHandler = require("../Common/requestHandler").RequestHandler;
 const app = express();
 
 const MODE =
@@ -30,9 +31,19 @@ app.get("/", (req, res) => {
   res.sendFile(path.resolve(__dirname, dist, "index.html"));
 });
 
-app.get("/getData", (req, res) => {
+app.get("/query", (req, res) => {
   const value = req.body.value;
-  res.send({ wow: "awesome" });
+  const keywords =
+    "2019-nCoV,SARS-CoV-2, COVID-19, coronavirus, novel coronavirus, person to person, human to human, interpersonal contact, air, water,fecal, surfaces,aerisol, transmission, shedding";
+  const { queryServerUrl } = config;
+  RequestHandler(
+    `${queryServerUrl}/query`,
+    "get",
+    { query: value, keywords },
+    { "Content-Type": "application/json" },
+    (response) => res.send(response),
+    (err) => res.send(err)
+  );
 });
 
 app.listen(port, () => console.log(`Listening on port ${port}`));
