@@ -10,15 +10,12 @@ const config = require("./config")[MODE];
 
 const { port, dist } = config;
 
-app.use(
-  bodyParser.urlencoded({
-    extended: true,
-  })
-);
-app.use(bodyParser.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 app.use("/", express.static(`${__dirname}/${dist}`));
 app.use(function (req, res, next) {
-  //res.header("Access-Control-Allow-Origin", "http://www.dev.me:3000"); // update to match the domain you will make the request from
+  MODE === "development" &&
+    res.header("Access-Control-Allow-Origin", "http://www.dev.me:3000"); // update to match the domain you will make the request from
   res.header(
     "Access-Control-Allow-Headers",
     "Origin, X-Requested-With, Content-Type, Accept"
@@ -31,7 +28,7 @@ app.get("/", (req, res) => {
   res.sendFile(path.resolve(__dirname, dist, "index.html"));
 });
 
-app.get("/query", (req, res) => {
+app.post("/query", (req, res) => {
   const value = req.body.value;
   const keywords =
     "2019-nCoV,SARS-CoV-2, COVID-19, coronavirus, novel coronavirus, person to person, human to human, interpersonal contact, air, water,fecal, surfaces,aerisol, transmission, shedding";
