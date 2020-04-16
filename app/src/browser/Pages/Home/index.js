@@ -13,7 +13,7 @@ class Home extends React.Component {
     super(props);
     this.state = {
       searchkey: "",
-      searchResult: {},
+      searchResult: [],
       isLoading: false,
     };
     ["getResult", "getResultSuccess", "getResultFailure"].forEach(
@@ -26,7 +26,11 @@ class Home extends React.Component {
   }
 
   getResultSuccess(result) {
-    this.setState({ isLoading: false, searchResult: result });
+    const searchResult = [];
+    for (const key in result) {
+      searchResult.push(result[key]);
+    }
+    this.setState({ isLoading: false, searchResult });
   }
 
   getResult(value) {

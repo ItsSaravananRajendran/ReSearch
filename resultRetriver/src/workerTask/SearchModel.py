@@ -268,7 +268,7 @@ class SearchModel:
                 idx = answers[c]['idx']
                 title = hit_dictionary[idx]['title']
                 authors = hit_dictionary[idx]['authors'] + ' et al.'
-                doi = '<a href="https://doi.org/'+hit_dictionary[idx]['doi']+'" target="_blank">' + title +'</a>'
+                doi = 'https://doi.org/'+hit_dictionary[idx]['doi']
 
                 
                 full_abs = answers[c]['abstract_bert']
@@ -314,10 +314,12 @@ class SearchModel:
         confidence = list(answers.keys())
         confidence.sort(reverse=True)
         ranked_aswers = []
+        finalResult ={}
+        I=0
         for c in confidence:
             ranked_aswers.append(' '.join([answers[c]['full_answer']]))
-        
-        
+            finalResult[str(I)] = answers[c];
+            I+=1
         if self.USE_SUMMARY:
             ## try generating an exacutive summary with extractive summarizer
             allAnswersTxt = ' '.join(ranked_aswers[:6]).replace('\n','')
@@ -331,12 +333,7 @@ class SearchModel:
                                                 no_repeat_ngram_size=4)
 
             exec_sum = self.SUMMARY_TOKENIZER.decode(summary_ids.squeeze(), skip_special_tokens=True)
-      
-        finalResult = [{"summary":exec_sum}]
-        for key in answers:
-            obj = answers[key];
-            obj['con'] = key;
-            finalResult.append(obj);    
+            finalResult = [{"summary":exec_sum}]
         return finalResult;
 
     def getResult(self,query,keywords):

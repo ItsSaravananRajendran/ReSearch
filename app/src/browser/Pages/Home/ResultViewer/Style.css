@@ -1,4 +1,17 @@
 .container {
+  margin-top: 20px;
   height: 90%;
   width: 100%;
+}
+
+.resultContainer {
+  margin-top: 10px;
+  min-height: 100px;
+}
+
+.resultTitle {
+}
+
+.answer {
+  font-weight: 600;
 }
