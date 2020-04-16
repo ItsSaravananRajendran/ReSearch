@@ -108,9 +108,12 @@ class ContentHandler:
         query_tokens = query_transformed.split(" ")
         # print(query_tokens)
         for token in query_tokens:
-            most_similar = model.wv.most_similar(positive=token, topn=5)
-            for ms_entity in most_similar:
-                keyword_list.append(ms_entity[0])
+            try:
+                most_similar = model.wv.most_similar(positive=token, topn=5)
+                for ms_entity in most_similar:
+                    keyword_list.append(ms_entity[0])
+            except Exception:
+                pass
         return keyword_list
 
     def retrieve_model(self):

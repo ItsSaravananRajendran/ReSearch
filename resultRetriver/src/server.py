@@ -17,7 +17,7 @@ modelInst = SearchModel()
 @app.route('/query')
 def query():
     data = request.get_json()
-    result = modelInst.getResult(data["query"],ch.get_keywords(data["query"]))
+    result = modelInst.getResult(data["query"]," ".join(ch.get_keywords(data["query"])))
     return result
     
 if __name__ == '__main__':
