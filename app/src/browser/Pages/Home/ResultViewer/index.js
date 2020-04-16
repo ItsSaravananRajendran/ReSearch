@@ -14,7 +14,6 @@ const Title = (props) => {
 const Para = (props) => {
   const { full_answer, answer } = props;
   const splitted = full_answer.split(answer);
-  console.log(full_answer, splitted);
   return (
     <div>
       <span>{splitted[0] && splitted[0]}</span>
@@ -26,10 +25,9 @@ const Para = (props) => {
 
 const ResultContainer = (props) => {
   const { title, doi } = props;
-  const link = doi.split('"')[1];
   return (
     <div className={Style.resultContainer}>
-      <Title title={title} link={link} />
+      <Title title={title} link={doi} />
       <Para {...props} />
     </div>
   );
