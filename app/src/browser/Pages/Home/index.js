@@ -34,12 +34,14 @@ class Home extends React.Component {
   }
 
   getResult(value) {
-    this.setState({ isLoading: true });
-    RequestManager.getSearchResult(
-      { value },
-      this.getResultSuccess,
-      this.getResultFailure
-    );
+    if (value !== "") {
+      this.setState({ isLoading: true });
+      RequestManager.getSearchResult(
+        { value },
+        this.getResultSuccess,
+        this.getResultFailure
+      );
+    }
   }
 
   render() {

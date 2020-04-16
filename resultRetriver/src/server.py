@@ -1,5 +1,5 @@
 
-from flask import Flask
+from flask import Flask, request
 
 from workerTask.SearchModel import SearchModel
 
@@ -10,7 +10,7 @@ modelInst = SearchModel()
 @app.route('/query')
 def query():
     data = request.get_json()
-    result = return modelInst.getResult(data["query"],data["keywords"])
+    result = modelInst.getResult(data["query"],data["keywords"])
     return result;
     
 if __name__ == '__main__':
