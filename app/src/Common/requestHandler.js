@@ -6,7 +6,7 @@ const RequestHandler = (
   data = {},
   headers = {},
   successCB,
-  errorCB
+  errorCB = () => {}
 ) => {
   return superAgent[method](url)
     .send(data)
