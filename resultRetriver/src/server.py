@@ -1,6 +1,5 @@
 import sys
 
-from workerTask.main import modelInst
 
 sys.path.append('../../es/datasets')
 sys.path.append('../../es/es_core/')
