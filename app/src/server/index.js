@@ -18,7 +18,7 @@ app.use(
 app.use(bodyParser.json());
 app.use("/", express.static(`${__dirname}/${dist}`));
 app.use(function (req, res, next) {
-  res.header("Access-Control-Allow-Origin", "http://www.dev.me:3000"); // update to match the domain you will make the request from
+  //res.header("Access-Control-Allow-Origin", "http://www.dev.me:3000"); // update to match the domain you will make the request from
   res.header(
     "Access-Control-Allow-Headers",
     "Origin, X-Requested-With, Content-Type, Accept"
