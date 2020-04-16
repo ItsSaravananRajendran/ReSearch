@@ -104,14 +104,14 @@ def getHits(query,keywords,searcher):
     return hit_dictionary
 
 
-class searchModel:
+class SearchModel:
     def __init__(self):
         self.QA_MODEL = BertForQuestionAnswering.from_pretrained(BIOASQ_DIR)
         self.QA_TOKENIZER = BertTokenizer.from_pretrained(BIOASQ_DIR)
         self.QA_MODEL.to(torch_device)
         self.QA_MODEL.eval()
         self.searcher = pysearch.SimpleSearcher(luceneDir)
-        self.USE_SUMMARY = True;
+        self.USE_SUMMARY = False
 
         if self.USE_SUMMARY:
             self.SUMMARY_TOKENIZER = BartTokenizer.from_pretrained('bart-large-cnn')
@@ -346,4 +346,3 @@ class searchModel:
 
 
 
-modelInst = searchModel()
