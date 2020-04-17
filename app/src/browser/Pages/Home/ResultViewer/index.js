@@ -1,6 +1,9 @@
 import React from "react";
 
+import { getCharacter } from "./util";
 import Style from "./Style.css";
+
+const MAX_LIMIT = 100;
 
 const Title = (props) => {
   const { title, link } = props;
@@ -12,13 +15,19 @@ const Title = (props) => {
 };
 
 const Para = (props) => {
-  const { full_answer, answer } = props;
-  const splitted = full_answer.split(answer);
+  const { abstract_bert, answer } = props;
+  const splitted = abstract_bert.split(answer);
+  const requiredLength = Math.floor((MAX_LIMIT - answer.length) / 2);
+  console.log(requiredLength);
+  const preAnswer =
+    splitted[0] && getCharacter(splitted[0], requiredLength, true);
+  const postAnswer =
+    splitted[1] && getCharacter(splitted[1], requiredLength, false);
   return (
     <div>
-      <span>{splitted[0] && splitted[0]}</span>
+      <span>{preAnswer}</span>
       <span className={Style.answer}>{answer}</span>
-      <span>{splitted[1] && splitted[1]}</span>
+      <span>{postAnswer}</span>
     </div>
   );
 };

@@ -1,6 +1,7 @@
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const CompressionPlugin = require("compression-webpack-plugin");
 
 module.exports = {
   mode: "production",
@@ -58,6 +59,11 @@ module.exports = {
     // Create the stylesheet under 'styles' directory
     new MiniCssExtractPlugin({
       filename: "styles/styles.[hash].css",
+    }),
+    new CompressionPlugin({
+      filename: "[path].gz[query]",
+      algorithm: "gzip",
+      test: /\.js$|\.css$|\.html$/,
     }),
   ],
 };
