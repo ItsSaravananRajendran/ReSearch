@@ -3,7 +3,7 @@ import React from "react";
 import { getCharacter } from "./util";
 import Style from "./Style.css";
 
-const MAX_LIMIT = 50;
+const MAX_LIMIT = 150;
 
 const Title = (props) => {
   const { title, link } = props;

@@ -8,7 +8,7 @@
     "dev": "webpack --watch --config webpack.config.development.js & nodemon src/server/index.js",
     "prebuild": "rimraf dist",
     "build": "cross-env NODE_ENV=production webpack -p --config webpack.config.production.js",
-    "prod": "npm run build && node src/server/index.js"
+    "prod": "npm run build &&  pm2 start src/server/index.js"
   },
   "author": "",
   "license": "ISC",

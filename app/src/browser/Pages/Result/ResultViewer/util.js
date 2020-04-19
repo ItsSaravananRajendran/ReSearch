@@ -8,8 +8,8 @@ const getCharacter = (string, length, preAnswer = true) => {
       return result;
     }
   } else {
-    if (length > string.length) result = string.substring(0, length);
-    result = result + "...";
+    if (length < string.length) result = string.substring(0, length) + "...";
+    else result = string + "...";
     return result;
   }
   return string;
