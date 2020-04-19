@@ -1,6 +1,6 @@
 DEFAULT_LITE_INDEX = "lite"
-ABSTRACTS_CSV_PATH = "../datasets/abstracts.csv"
-WORD2VEC_MODEL_PATH = "word2vec.model"
+ABSTRACTS_CSV_PATH = "~/ReSearch/es/datasets/abstracts.csv"
+WORD2VEC_MODEL_PATH = "~/ReSearch/es/es_core/word2vec.model"
 
 
 class ErrorConstants:

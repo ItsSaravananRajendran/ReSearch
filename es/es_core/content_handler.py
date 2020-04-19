@@ -45,7 +45,8 @@ class ContentHandler:
         # important sentence as the one that is most similar to all.
         self.spacy_pipeline = spacy.load("en_core_web_sm")
         self.spacy_pipeline.add_pipe(self.tr.PipelineComponent, name="TextRank", last=True)
-        self.word2vec_trained = os.path.exists(constants.WORD2VEC_MODEL_PATH)
+        # FIXME
+        self.word2vec_trained = True
         if not self.word2vec_trained:
             self.train_word2vec()
         self.word2vec_model = self.retrieve_model()
@@ -123,6 +124,7 @@ class ContentHandler:
             return model
 
     def train_word2vec(self):
+        print('[INFO] Training word 2 vec')
         df = pd.read_csv(constants.ABSTRACTS_CSV_PATH)
         word2vec_doc_list = []
         for i in range(0, df.shape[0]):
