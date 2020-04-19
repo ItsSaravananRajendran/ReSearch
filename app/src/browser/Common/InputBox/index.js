@@ -46,11 +46,11 @@ class InputBox extends React.Component {
   }
 
   getResultSuccess(result) {
-    const searchResult = [];
-    for (const key in result) {
-      searchResult.push(result[key]);
-    }
-    this.props.setData({ isLoading: false, searchResult });
+    this.props.setData({
+      isLoading: false,
+      searchResult: result,
+      keyWords: result["keyWords"],
+    });
   }
 
   submit() {

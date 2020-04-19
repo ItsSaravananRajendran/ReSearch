@@ -17,7 +17,8 @@ from nltk.tokenize import word_tokenize
 
 import constants
 
-sys.path.append('../datasets/')
+
+sys.path.append('/home/user/ReSearch/es/es_core/datasets/')
 import dataset_config
 
 

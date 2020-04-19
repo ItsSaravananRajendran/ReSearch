@@ -44,7 +44,7 @@ const ResultContainer = (props) => {
 const ResultViewer = ({ searchResult = {} }) => {
   const arrayOfResult = [];
   for (const key in searchResult) {
-    arrayOfResult.push(searchResult[key]);
+    key !== "keywords" && arrayOfResult.push(searchResult[key]);
   }
   return (
     <div className={Style.container}>
