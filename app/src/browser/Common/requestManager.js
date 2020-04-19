@@ -11,4 +11,8 @@ const requestHandlerFactory = (url, method = "get", header = {}) => (
 
 export default {
   getSearchResult: requestHandlerFactory(`${root}/query`, "post"),
+  getSearchResultWithKeyword: requestHandlerFactory(
+    `${root}/queryWithoutKey`,
+    "post"
+  ),
 };

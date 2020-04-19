@@ -11,7 +11,7 @@ class DataStore extends React.Component {
     this.state = {
       isLoading: false,
       searchResult: {},
-      keyWords: [],
+      keywords: [],
       searchQuery: "",
     };
     ["updateData"].forEach(

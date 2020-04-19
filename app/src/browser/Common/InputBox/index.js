@@ -2,6 +2,7 @@ import React from "react";
 import Style from "./Style.css";
 
 import RequestManager from "../requestManager";
+import mock from "./mock";
 
 const Title = ({ className }) => {
   return <div className={className}>ReSearch</div>;
@@ -49,7 +50,9 @@ class InputBox extends React.Component {
     this.props.setData({
       isLoading: false,
       searchResult: result,
-      keyWords: result["keyWords"],
+      keywords: result["keywords"].filter(
+        (item, index) => result["keywords"].indexOf(item) === index
+      ),
     });
   }
 
