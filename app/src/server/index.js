@@ -47,4 +47,18 @@ app.post("/query", (req, res) => {
   );
 });
 
+app.post("/queryWithoutKey", (req, res) => {
+  const value = req.body.value;
+  const keywords = req.body.keywords;
+  const { queryServerUrl } = config;
+  RequestHandler(
+    `${queryServerUrl}/queryWithoutKey`,
+    "get",
+    { query: value, keywords },
+    { "Content-Type": "application/json" },
+    (response) => res.send(response),
+    (err) => res.send(err)
+  );
+});
+
 app.listen(port, () => console.log(`Listening on port ${port}`));
