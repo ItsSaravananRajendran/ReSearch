@@ -1,16 +1,27 @@
 import React from "react";
 import Style from "./Style.css";
 
+import RequestManager from "../requestManager";
+
+const Title = ({ className }) => {
+  return <div className={className}>ReSearch</div>;
+};
+
 class InputBox extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      value: "",
       selected: false,
     };
-    ["onChange", "submit", "onKeyPress", "onFocus", "onBlur"].forEach(
-      (method) => (this[method] = this[method].bind(this))
-    );
+    [
+      "onChange",
+      "submit",
+      "onKeyPress",
+      "onFocus",
+      "onBlur",
+      "getResultFailure",
+      "getResultSuccess",
+    ].forEach((method) => (this[method] = this[method].bind(this)));
   }
 
   onKeyPress(e) {
@@ -18,8 +29,8 @@ class InputBox extends React.Component {
   }
 
   onChange(e) {
-    const value = e.currentTarget.value;
-    this.setState({ value });
+    const searchQuery = e.currentTarget.value;
+    this.props.setData({ searchQuery });
   }
 
   onFocus(e) {
@@ -30,32 +41,53 @@ class InputBox extends React.Component {
     this.setState({ selected: false });
   }
 
+  getResultFailure(error) {
+    this.props.setData({ isLoading: false });
+  }
+
+  getResultSuccess(result) {
+    const searchResult = [];
+    for (const key in result) {
+      searchResult.push(result[key]);
+    }
+    this.props.setData({ isLoading: false, searchResult });
+  }
+
   submit() {
     const {
-      props: { onDone: callBack },
-      state: { value },
+      props: { searchQuery, onSubmit },
     } = this;
-    callBack(value);
+    if (searchQuery !== "") {
+      this.props.setData({ isLoading: true });
+      RequestManager.getSearchResult(
+        { value: searchQuery },
+        this.getResultSuccess,
+        this.getResultFailure
+      );
+      onSubmit && onSubmit();
+    }
   }
 
   render() {
     const {
-      state: { value, selected },
-      props: { containerClass = "" },
+      state: { selected },
+      props: { searchQuery, containerClass = "" },
       onChange,
       onKeyPress,
       onFocus,
       onBlur,
+      placeholder = "",
     } = this;
     const className = `${Style.container} ${containerClass} ${
-      selected ? Style.selected : null
+      selected ? Style.selected : Style.notInFocus
     } `;
     return (
       <div className={className}>
         <input
+          placeholder={placeholder}
           className={Style.inputBox}
           type="text"
-          value={value}
+          value={searchQuery}
           onChange={onChange}
           onKeyPress={onKeyPress}
           onFocus={onFocus}
@@ -67,3 +99,4 @@ class InputBox extends React.Component {
 }
 
 export default InputBox;
+export { Title };

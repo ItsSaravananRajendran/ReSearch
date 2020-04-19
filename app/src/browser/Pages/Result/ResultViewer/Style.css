@@ -1,11 +1,11 @@
 .container {
   margin-top: 20px;
-  height: 90%;
-  width: 100%;
+  width: 65%;
+  margin-left: 110px;
 }
 
 .resultContainer {
-  margin-top: 10px;
+  margin-top: 30px;
   min-height: 50px;
 }
 
@@ -15,4 +15,8 @@
 
 .answer {
   font-weight: 600;
+}
+
+.para {
+  margin-top: 5px;
 }

@@ -1,62 +1,36 @@
 import React from "react";
 
+import InputBox, { Title } from "../../Common/InputBox";
+
 import Style from "./Style.css";
 
-import Loader from "../../Common/Loader";
-import Header from "./Header";
-import ResultViewer from "./ResultViewer";
-
-import RequestManager from "../../Common/requestManager";
-
-class Home extends React.Component {
+class HomePage extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      searchkey: "",
-      searchResult: [],
-      isLoading: false,
-    };
-    ["getResult", "getResultSuccess", "getResultFailure"].forEach(
+    ["goToResult"].forEach(
       (method) => (this[method] = this[method].bind(this))
     );
   }
 
-  getResultFailure(error) {
-    this.setState({ isLoading: false });
-  }
-
-  getResultSuccess(result) {
-    const searchResult = [];
-    for (const key in result) {
-      searchResult.push(result[key]);
-    }
-    this.setState({ isLoading: false, searchResult });
-  }
-
-  getResult(value) {
-    if (value !== "") {
-      this.setState({ isLoading: true });
-      RequestManager.getSearchResult(
-        { value },
-        this.getResultSuccess,
-        this.getResultFailure
-      );
-    }
+  goToResult() {
+    const { history } = this.props;
+    history.push("/result");
   }
 
   render() {
-    const {
-      state: { searchResult, isLoading },
-      getResult,
-    } = this;
     return (
       <div className={Style.container}>
-        {isLoading && <Loader />}
-        <Header onDone={getResult} />
-        <ResultViewer searchResult={searchResult} />
+        <div className={Style.titleComponent}>
+          <Title className={Style.research} />
+          <InputBox
+            containerClass={Style.inputBoxContainer}
+            {...this.props}
+            onSubmit={this.goToResult}
+          />
+        </div>
       </div>
     );
   }
 }
 
-export default Home;
+export default HomePage;

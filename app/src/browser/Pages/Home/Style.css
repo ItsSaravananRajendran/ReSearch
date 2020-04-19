@@ -1,18 +1,22 @@
-html,
-body {
-  height: 100%;
-}
-
-input:focus,
-select:focus,
-textarea:focus,
-button:focus {
-  outline: none;
-  border: 0px;
-}
-
 .container {
-  display: flex;
-  flex-direction: column;
-  height: 600px;
+  height: 100vh;
+  position: relative;
+}
+
+.titleComponent {
+  top: 45%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  position: absolute;
+  width: 70%;
+  max-width: 480px;
+}
+
+.inputBoxContainer {
+  margin-top: 10px;
+}
+
+.research {
+  font-size: 48px;
+  text-align: center;
 }
