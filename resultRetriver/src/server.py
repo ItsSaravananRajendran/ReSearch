@@ -18,7 +18,16 @@ modelInst = SearchModel()
 @app.route('/query')
 def query():
     data = request.get_json()
-    result = modelInst.getResult(data["query"], " ".join(ch.get_keywords(data["query"])))
+    keywords = ch.get_keywords(data["query"])
+    result = modelInst.getResult(data["query"]," ".join(keywords))
+    result["keywords"] = keywords
+    return result
+
+@app.route('/queryWithoutKey')
+def queryWithoutKey():
+    data = request.get_json()
+    result = modelInst.getResult(data["query"]," ".join(data["keywords"]))
+    result["keywords"] = data["keywords"]
     return result
 
 

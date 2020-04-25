@@ -48,8 +48,8 @@ module.exports = {
     }),
   ],
   watchOptions: {
-    aggregateTimeout: 300,
-    poll: 1000,
+    aggregateTimeout: 20,
+    poll: 500,
     ignored: ["/node_modules/"],
   },
 };

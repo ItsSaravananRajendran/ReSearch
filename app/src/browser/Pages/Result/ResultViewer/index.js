@@ -3,7 +3,7 @@ import React from "react";
 import { getCharacter } from "./util";
 import Style from "./Style.css";
 
-const MAX_LIMIT = 100;
+const MAX_LIMIT = 150;
 
 const Title = (props) => {
   const { title, link } = props;
@@ -18,13 +18,12 @@ const Para = (props) => {
   const { abstract_bert, answer } = props;
   const splitted = abstract_bert.split(answer);
   const requiredLength = Math.floor((MAX_LIMIT - answer.length) / 2);
-  console.log(requiredLength);
   const preAnswer =
     splitted[0] && getCharacter(splitted[0], requiredLength, true);
   const postAnswer =
     splitted[1] && getCharacter(splitted[1], requiredLength, false);
   return (
-    <div>
+    <div className={Style.para}>
       <span>{preAnswer}</span>
       <span className={Style.answer}>{answer}</span>
       <span>{postAnswer}</span>
@@ -42,10 +41,14 @@ const ResultContainer = (props) => {
   );
 };
 
-const ResultViewer = ({ searchResult = [] }) => {
+const ResultViewer = ({ searchResult = {} }) => {
+  const arrayOfResult = [];
+  for (const key in searchResult) {
+    key !== "keywords" && arrayOfResult.push(searchResult[key]);
+  }
   return (
     <div className={Style.container}>
-      {searchResult.map((result) => (
+      {arrayOfResult.map((result) => (
         <ResultContainer key={result.idx} {...result} />
       ))}
     </div>

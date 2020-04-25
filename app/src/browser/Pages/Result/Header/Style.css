@@ -1,0 +1,70 @@
+.headerContainer {
+  width: 100%;
+  min-height: 80px;
+  position: sticky;
+  top: 0;
+  border-bottom: 1px solid #dbdbdb;
+  background-color: white;
+  box-shadow: 0 2px 2px -1px rgba(0, 0, 0, 0.2),
+    0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  color: #404040;
+}
+
+.centerContainer {
+  display: flex;
+  flex-direction: row;
+  position: relative;
+  top: 50%;
+  margin-top: 10px;
+  width: 100%;
+}
+
+.center {
+  margin: 0 25px 0 25px;
+  padding-top: 23px;
+}
+
+.inputBox {
+  width: 60%;
+}
+
+.inputClass {
+  display: flex;
+  flex-direction: column;
+  margin: 15px 0;
+  width: 90%;
+}
+
+.keywordContainer {
+  margin-top: 10px;
+}
+
+.keyword {
+  display: inline-block;
+  position: relative;
+  margin: 5px 10px 0 0px;
+  border: 2px solid #dbdbdb;
+  border-radius: 17px;
+  padding: 0 14px 0 5px;
+}
+
+.addButtonContainer {
+  display: inline-block;
+  margin-top: 5px;
+}
+
+.close {
+  position: absolute;
+  top: 1px;
+  right: 3px;
+}
+
+a:hover {
+  cursor: pointer;
+}
+
+.addKeyWord {
+  border: 0px;
+  width: 200px;
+  color: #404040;
+}

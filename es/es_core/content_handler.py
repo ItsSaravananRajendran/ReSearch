@@ -17,7 +17,8 @@ from nltk.tokenize import word_tokenize
 
 import constants
 
-sys.path.append('../datasets/')
+
+sys.path.append('/home/user/ReSearch/es/es_core/datasets/')
 import dataset_config
 
 
@@ -110,7 +111,7 @@ class ContentHandler:
         # print(query_tokens)
         for token in query_tokens:
             try:
-                most_similar = model.wv.most_similar(positive=token, topn=5)
+                most_similar = model.wv.most_similar(positive=token, topn=2)
                 for ms_entity in most_similar:
                     keyword_list.append(ms_entity[0])
             except Exception:
