@@ -16,6 +16,11 @@ import tensorflow as tf
 import tensorflow_hub as hub
 import numpy as np
 
+import sys
+
+sys.path.append('~/ReSearch/top_search/')
+import top_search
+
 torch_device = 'cuda' if torch.cuda.is_available() else 'cpu'
 
 USE_SUMMARY = True
@@ -273,7 +278,8 @@ class SearchModel:
                 
                 full_abs = answers[c]['abstract_bert']
                 bert_ans = answers[c]['answer']
-                
+
+                top_search.update_count(idx, title, full_abs, doi)
                 
                 split_abs = full_abs.split(bert_ans)
                 sentance_beginning = split_abs[0][split_abs[0].rfind('.')+1:]
